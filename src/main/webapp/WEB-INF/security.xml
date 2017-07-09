@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <import resource="applicationContext.xml"/>
+
+    <security:http use-expressions="true">
+        <security:form-login login-page="/signUp" login-processing-url="/login"
+                             authentication-success-forward-url="/"
+                             authentication-failure-forward-url="/failureLogin"/>
+
+        <security:intercept-url pattern="/listOfAuthors" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateAuthor" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/buyBooks" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/listOfBooks" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateBook" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/country" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateCountry" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/error403" access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/listOfGenres" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/updateGenre" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/listOfMagazine" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/footer" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/header" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/template" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/history" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/listOfUsers" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/profile" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/updateUser" access="hasRole('ROLE_ADMIN') and hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/newOrder" access="hasRole('ROLE_ADMIN')"/>
+        <security:logout logout-url="/logout" logout-success-url="/"/>
+
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+            </security:user-service>
+        </security:authentication-provider>
+        <security:authentication-provider user-service-ref="userDetailsService">
+            <security:password-encoder ref="encoder"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </bean>
+
+</beans>
