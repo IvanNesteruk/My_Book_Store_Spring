@@ -310,9 +310,9 @@ public class MailSenderServiceImpl implements MailSenderService {
                     "     </tr>\n" +
                     "     <tr>\n" +
                     "     <td>" + mailBody.iterator().next().getTitleOfBook()+ "</td>\n" +
-                    "                     <td>" + mailBody.iterator().next().getPriceOfBook() + "</td>\n" +
-                    "                     <td><img class=\"s\" src=\"cid:image\"></td>\n" +
-                    "                    </tr>\n" +
+                    "           <td>" + mailBody.iterator().next().getPriceOfBook() + "</td>\n" +
+                    "           <td><img class=\"s\" src=\"cid:image\"></td>\n" +
+                    "           </tr>\n" +
                     "</body>\n" +
                     "</html>";
             messageBodyPart.setContent(htmlText, "text/html");

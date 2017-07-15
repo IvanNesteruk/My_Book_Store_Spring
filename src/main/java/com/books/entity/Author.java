@@ -33,6 +33,12 @@ public class Author extends AbstractEntity {
 		this.surname = surname;
 	}
 
+	public Author(String name, String surname, Country country) {
+		this.name = name;
+		this.surname = surname;
+		this.country = country;
+	}
+
 	public String getName() {
 		return name;
 	}

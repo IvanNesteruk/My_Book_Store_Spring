@@ -3,15 +3,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="custom" uri="/WEB-INF/custom.tld" %>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<link href="images/favicon.ico" rel="shortcut icon" />
-<link href="images/apple-touch-icon.png" rel="apple-touch-icon" />
-<link href="images/apple-touch-icon-72x72.png" sizes="72x72" rel="apple-touch-icon" />
-<link href="images/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon" />
-<!-- Le javascript
-================================================== -->
 <script src="http://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" data-semver="3.1.1" data-require="bootstrap"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" data-semver="3.1.1"
+        data-require="bootstrap"></script>
 <script src="http://bootboxjs.com/bootbox.js"></script>
 <script src="script.js"></script>
 
@@ -54,8 +50,10 @@
         <th style="border: 1px solid black">Image</th>
         <th style="border: 1px solid black">Delete</th>
         <th style="border: 1px solid black">Update</th>
-        <th style="border: 1px solid black">Basket</th>
-        <th style="border: 1px solid black">Like</th>
+        <sec:authorize access="hasRole('ROLE_USER')">
+            <th style="border: 1px solid black">Basket</th>
+            <th style="border: 1px solid black">Like</th>
+        </sec:authorize>
     </tr>
 
     <c:forEach var="book" items="${books.content}">
@@ -71,10 +69,9 @@
             </td>
 
 
-
-            <%--<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet" />--%>
-            <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>--%>
-            <%--<script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap.js"></script>--%>
+            <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap.js"></script>
 
 
             <div id="confirm" class="modal hide fade">
@@ -87,10 +84,12 @@
                 </div>
             </div>
 
-            <%--<td> <form action="/deleteBook/${book.id}?${_csrf.parameterName}=${_csrf.token}" method="GET">--%>
+                <%--<td> <form action="/deleteBook/${book.id}?${_csrf.parameterName}=${_csrf.token}" method="GET">--%>
                 <%--<button id="btnDelete" class='btn btn-danger btn-xs' type="submit" name="remove_levels" value="delete"><span class="fa fa-times"></span>delete</button>--%>
-            <%--</form></td>--%>
-            <td style="border: 1px solid black"><a href="/deleteBook/${book.id}" onclick="return confirm('Are you sure you want to delete')">Delete</a></td>
+                <%--</form></td>--%>
+            <td style="border: 1px solid black"><a href="/deleteBook/${book.id}"
+                                                   onclick="return confirm('Are you sure you want to delete')">Delete</a>
+            </td>
             <td style="border: 1px solid black "><a href="/updateBook/${book.id}" target="_blank">Update</a></td>
             <sec:authorize access="isAuthenticated() && hasRole('ROLE_USER')">
                 <td style="border: 1px solid black ">
@@ -105,14 +104,13 @@
     </c:forEach>
 </table>
 
-<div style="display: flex; justify-content: center;text-align: center">
-
+<div style="display: flex; justify-content: center; margin-left: 10%">
     <div class="col-md-12 col-xs-12">
         <div class="row">
             <div class="col-md-2 col-xs-6">
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort<span
-                            class="caret"></span>
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort
+                        <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
                         <custom:sort innerHtml="Name asc" paramValue="titleOfBook"/>
@@ -120,7 +118,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-10 col-xs-12 text-center">
+            <div class="col-md-6 col-xs-12 text-center">
                 <custom:pageable page="${books}" cell="<li></li>" container="<ul class='pagination'></ul>"/>
             </div>
             <div class="col-md-2 col-xs-6">
@@ -129,15 +127,24 @@
         </div>
     </div>
 </div>
+</div>
+</div>
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-        $('#btnDelete').click(function() {
-            bootbox.confirm("Are you sure want to delete?", function(result) {
+        $('#btnDelete').click(function () {
+            bootbox.confirm("Are you sure want to delete?", function (result) {
                 alert("Confirm result: " + result);
             });
         });
     });
 </script>
+
+
+<input type="hidden" name="csrf_name"
+       value="${_csrf.parameterName}"/>
+<input type="hidden" name="csrf_value"
+       value="${_csrf.token}"/>
+

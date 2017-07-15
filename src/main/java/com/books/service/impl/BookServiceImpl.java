@@ -66,12 +66,12 @@ public class BookServiceImpl implements BookService {
 
     public Book update(Book book, MultipartFile image) {
 
-        book.setTitleOfBook(book.getTitleOfBook());
+        book.setTitleOfBook(book.getTitleOfBook() + "U");
 
         String path = "C:\\Users\\User\\Desktop\\apache-tomcat-8.0.43\\resources\\"
                 + book.getTitleOfBook()
                 + "\\" + image.getOriginalFilename();
-        book.setPathImage("resources/" + book.getTitleOfBook() + "/" + image.getOriginalFilename());
+        book.setPathImage("resources/" + book.getTitleOfBook() + "/" + (image.getOriginalFilename()));
 
         File filePath = new File(path);
 
@@ -89,7 +89,10 @@ public class BookServiceImpl implements BookService {
         } catch (IOException e) {
             System.out.println("error with file");
         }
-        System.out.println("Size of book: " + image.getSize());
+        for(int i = 0; i < book.getTitleOfBook().length(); i++){
+            String[] s = book.getTitleOfBook().split("U");
+            book.setTitleOfBook(s[0]);
+        }
         return bookDao.save(book);
     }
 

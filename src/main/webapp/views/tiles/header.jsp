@@ -28,12 +28,12 @@
                 <sec:authorize access="hasRole('ROLE_USER')">
                     <li><a href="/buyBooks" target="_blank"><spring:message code="label.buyBook"/></a></li>
                     <li><a href="/profile" target="_blank"><spring:message code="label.profile"/></a></li>
+                    <li><a href="/history/" target="_blank"><spring:message code="label.history"/></a></li>
                 </sec:authorize>
 
                 <sec:authorize access="isAuthenticated()">
-                    <li><a href="/openCityView" target="_blank"><spring:message code="label.magazines"/></a></li>
+                    <%--<li><a href="/openCityView" target="_blank"><spring:message code="label.magazines"/></a></li>--%>
                     <li><a href="/openUserView" target="_blank"><spring:message code="label.users"/></a></li>
-                    <li><a href="/history/" target="_blank"><spring:message code="label.history"/></a></li>
                     <li>
                         <form:form action="/logout" method="post">
                             <button class="btn btn-default"><spring:message code="label.logout"/></button>

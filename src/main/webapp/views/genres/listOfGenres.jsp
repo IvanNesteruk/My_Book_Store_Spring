@@ -16,6 +16,7 @@
         <div class="container">
             <div class="form-group">
                 <label for="genreOfBook">Genre:</label>
+                ${GenreNameException}
                 <form:input class="form-control" path="genreOfBook"
                             placeholder="genreOfBook"></form:input>
             </div>

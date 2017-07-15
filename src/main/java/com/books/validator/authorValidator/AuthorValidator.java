@@ -19,7 +19,8 @@ public class AuthorValidator implements Validator {
             throw new AuthorException(AuthorValidationMessages.EMPTY_AUTHORNAME_FIELD);
         } else if (authorDao.findByName(author.getName()) != null) {
             throw new AuthorException(AuthorValidationMessages.AUTHORNAME_ALREADY_EXISTS);
+        } else if (author.getSurname().isEmpty()){
+            throw  new AuthorException(AuthorValidationMessages.EMPTY_AUTHORSURNAME_FIELD);
         }
-
     }
 }

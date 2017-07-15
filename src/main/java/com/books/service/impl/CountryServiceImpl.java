@@ -1,6 +1,8 @@
 package com.books.service.impl;
 
+import com.books.dao.AuthorDao;
 import com.books.dao.CountryDao;
+import com.books.entity.Author;
 import com.books.entity.Country;
 import com.books.service.CountryService;
 import com.books.validator.Validator;
@@ -15,10 +17,13 @@ import java.util.List;
  */
 
 @Service
-public class CountryServiceImpl implements CountryService{
+public class CountryServiceImpl implements CountryService {
 
     @Autowired
     CountryDao countryDao;
+
+    @Autowired
+    AuthorDao authorDao;
 
     @Autowired
     @Qualifier("countryValidator")
@@ -44,11 +49,23 @@ public class CountryServiceImpl implements CountryService{
 
     @Override
     public void delete(int id) {
+
+        Country country = countryDao.findCountryWithAuthors(id);
+        for (Author author : country.getAuthors()) {
+            author.setCountry(null);
+            authorDao.saveAndFlush(author);
+        }
+
         countryDao.delete(id);
     }
 
     @Override
     public void update(Country country) {
         countryDao.save(country);
+    }
+
+    @Override
+    public Country findCountryWithAuthors(int id) {
+        return countryDao.findCountryWithAuthors(id);
     }
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import com.books.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.books.dao.AuthorDao;
@@ -42,6 +44,11 @@ public class AuthorServiceImpl implements AuthorService {
     public Author update(Author author) {
         authorDao.save(author);
         return author;
+    }
+
+    @Override
+    public Page<Author> findAllPages(Pageable pageable) {
+        return authorDao.findAll(pageable);
     }
 
 }

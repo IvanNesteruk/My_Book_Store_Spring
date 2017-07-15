@@ -19,4 +19,6 @@ public interface CountryService {
     void delete(int id);
 
     void update(Country country);
+
+    Country findCountryWithAuthors(int id);
 }

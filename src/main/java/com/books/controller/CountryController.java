@@ -22,7 +22,7 @@ public class CountryController {
     private CountryService countryService;
 
     @GetMapping("/country")
-    public String country(Model model){
+    public String country(Model model) {
         model.addAttribute("countries", countryService.findAll());
         model.addAttribute("country", new Country());
         return "views-country-country";
@@ -33,28 +33,30 @@ public class CountryController {
         try {
             countryService.save(country);
         } catch (Exception e) {
-            if(e.getMessage().equals(CountryValidationMessages.COUNTRYNAME_ALREADY_EXISTS)
-                    || e.getMessage().equals(CountryValidationMessages.EMPTY_COUNTRYNAME_FIELD)){
-                model.addAttribute("CounyryNmaeException", e.getMessage());
+            if (e.getMessage().equals(CountryValidationMessages.COUNTRYNAME_ALREADY_EXISTS)
+                    || e.getMessage().equals(CountryValidationMessages.EMPTY_COUNTRYNAME_FIELD)) {
+                model.addAttribute("CountryNameException", e.getMessage());
             }
+            model.addAttribute("countries", countryService.findAll());
             return "views-country-country";
         }
         return "redirect:/country";
     }
 
-    @GetMapping("/deleteCountry")
+    @GetMapping("/deleteCountry/{id}")
     public String deleteCountry(@PathVariable int id) {
         countryService.delete(id);
         return "redirect:/country";
     }
 
-    @GetMapping("/updateCountry{id}")
-    public String getCoutry(@PathVariable int id, Model model){
+    @GetMapping("/updateCountry/{id}")
+    public String getCountry(@PathVariable int id, Model model) {
         model.addAttribute("countryAttribute", countryService.findOne(id));
         return "views-country-updateCountry";
     }
 
-    public String updateCountry(@ModelAttribute("country") Country country, @PathVariable int id, Model model){
+    @PostMapping("/updateCountry/{id}")
+    public String updateCountry(@ModelAttribute("country") Country country, @PathVariable int id, Model model) {
         country.setId(id);
         countryService.update(country);
         model.addAttribute("countries", countryService.findAll());

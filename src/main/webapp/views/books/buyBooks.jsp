@@ -18,7 +18,7 @@
 <script src="<c:url value="/js/search.js"/>"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<input type="number" id="myInput" onkeyup="loadBookPrices()" placeholder="Search for names.." title="Type in a name">
+<input type="number" id="myInput" onkeyup="loadBookPrices()" placeholder="Search for prices.." title="Type in a price">
 
 <div style="margin-bottom: 10px; margin-top: 10px; width: 20%; float: right; padding-right: 10px">
     <div data-role="rangeslider">
@@ -33,8 +33,8 @@
         <input type="range" name="price-max" id="price-max" value="800" min="0" max="1000" onchange="changeLabel()"
                oninput="searchPrices()">
     </div>
-    <input style="margin-top: 5px" type="text" class="form-control" id="searchIn" oninput="searchItems()"
-           placeholder="Search..."/>
+    <%--<input style="margin-top: 5px" type="text" class="form-control" id="searchIn" oninput="searchItems()"--%>
+           <%--placeholder="Search..."/>--%>
 </div>
 
 <%--<div id="slider-range"></div>--%>

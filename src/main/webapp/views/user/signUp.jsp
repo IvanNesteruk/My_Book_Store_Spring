@@ -76,5 +76,7 @@
     </c:forEach>
 </table>
 
-<input type="hidden" name="${_csrf.parameterName}"
+<input type="hidden" name="csrf_name"
+       value="${_csrf.parameterName}"/>
+<input type="hidden" name="csrf_value"
        value="${_csrf.token}"/>
