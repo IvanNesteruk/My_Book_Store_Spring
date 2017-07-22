@@ -83,7 +83,7 @@
 <script src="/js/signUp.js"></script>
 
 <script>
-    
+
     change();
     function change() {
         var frm = document.getElementById('user') || null;
