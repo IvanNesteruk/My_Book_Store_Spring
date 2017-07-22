@@ -2,8 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <link rel="stylesheet" type="text/css" href="/styles/signUp.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/signUp.js"></script>
+<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--%>
 
 <div class="form-wrap">
     <div class="tabs">
@@ -80,3 +79,15 @@
        value="${_csrf.parameterName}"/>
 <input type="hidden" name="csrf_value"
        value="${_csrf.token}"/>
+
+<script src="/js/signUp.js"></script>
+
+<script>
+    change();
+    function change() {
+        var frm = document.getElementById('user') || null;
+        if(frm) {
+            frm.action = '/signUp'
+        }
+    }
+</script>

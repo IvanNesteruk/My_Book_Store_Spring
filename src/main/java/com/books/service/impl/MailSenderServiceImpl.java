@@ -330,7 +330,6 @@ public class MailSenderServiceImpl implements MailSenderService {
 
             // put everything together
             message.setContent(multipart);
-            System.out.println("FIX");
 
             // Send message
             Transport.send(message);

@@ -26,9 +26,6 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
 
     @Autowired
-    private GenreDao genreDao;
-
-    @Autowired
     @Qualifier("bookValidator")
     Validator validator;
 
